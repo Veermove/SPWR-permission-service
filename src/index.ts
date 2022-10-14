@@ -104,7 +104,7 @@ run(async () => {
     server.listen(
         port, "0.0.0.0",
         () => ctx.logger.info(
-            `uknownyet:${chalk.yellow(port)}`,
+            `spwrotted:${chalk.yellow(port)}`,
             `(${chalk.blueBright("v." + version)})`,
         ),
     );
