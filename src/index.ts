@@ -31,6 +31,7 @@ import configureHeaders from "./config/headers";
 import configureLogging from "./config/logging";
 import configureRedirects from "./config/redirects";
 import configureRoutes from "./config/routes";
+import connectDatabase from "./config/database";
 
 import { port } from "./config/server.json";
 import { version } from "../package.json";
@@ -99,6 +100,9 @@ run(async () => {
     // logger (and error handling) configuration
     configureLogging();
 
+
+    // PostgreSQL conntection
+    connectDatabase();
 
     // listen and respond to requests
     server.listen(

@@ -10,6 +10,7 @@
 
 
 import type { RequestHandler } from "express";
+import { useMemory } from "..";
 import {
     name as applicationName,
     version,
@@ -23,8 +24,12 @@ import {
  *
  * @function hello
  */
-export const hello: RequestHandler = (req, res, next) => {
+export const hello: RequestHandler = async (req, res, next) => {
 
+    const { db } = useMemory();
+    // await db.users.create();
+    db.users.drop();
+    // await db.users.create();
     const responseData = {
         message: "hello",
         app: applicationName,

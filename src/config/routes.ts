@@ -25,6 +25,6 @@ export default function configureRoutes (): void {
     const { app } = useMemory();
 
     // "hello world" route
-    app.get(`${apiV1}/`, hello);
+    app.get(`${apiV1}/hello`, hello);
 
 }
