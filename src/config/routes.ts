@@ -13,6 +13,7 @@ import { useMemory } from "../index";
 import { apiV1 } from "./env";
 
 import { hello } from "../actions/hello";
+import { createUser, isAdmin } from "../actions/user";
 
 
 
@@ -26,5 +27,12 @@ export default function configureRoutes (): void {
 
     // "hello world" route
     app.get(`${apiV1}/`, hello);
+
+
+    // "create user" route
+    app.post(`${apiV1}/user/create`, createUser);
+
+    // "isAdmin user" route
+    app.post(`${apiV1}/user/isAdmin`, isAdmin);
 
 }
