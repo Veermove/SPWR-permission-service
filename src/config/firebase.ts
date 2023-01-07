@@ -1,5 +1,11 @@
 import { FirebaseApp, initializeApp } from "firebase/app";
 import { Firestore, getFirestore } from "firebase/firestore";
+import { Auth, getAuth } from "firebase-admin/auth";
+import {
+    App,
+    applicationDefault,
+    initializeApp as initializeAdminApp ,
+} from "firebase-admin/app";
 import { share } from "mem-box/memory";
 
 
@@ -19,14 +25,20 @@ const firebaseConfig = {
 export default function configureFirebase (): void {
     const
         firebase = initializeApp(firebaseConfig),
-        db = getFirestore(firebase);
+        db = getFirestore(firebase),
+        firebaseAdmin = initializeAdminApp({
+            credential: applicationDefault(),
+        }),
+        auth = getAuth(firebaseAdmin);
 
-    share({ firebase, db });
+    share({ firebase, firebaseAdmin, db, auth });
 }
 
 declare global {
     interface Ctx {
         firebase: FirebaseApp;
+        firebaseAdmin: App;
         db: Firestore;
+        auth: Auth;
     }
 }

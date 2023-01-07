@@ -95,9 +95,11 @@ run(async () => {
     // catch-all route configuration
     configureCatchAll();
 
+
     // logger (and error handling) configuration
     configureLogging();
 
+    // firebase initialization
     configureFirebase();
 
     // listen and respond to requests

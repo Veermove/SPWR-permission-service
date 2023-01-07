@@ -1,20 +1,27 @@
 import { RequestHandler } from "express";
 import { useMemory } from "..";
 import { getDoc, doc, setDoc } from "firebase/firestore";
+import { verifyAuthHeader } from "../lib/utils";
 
 export const createUser: RequestHandler = async (req, res, next) => {
 
     const { db, logger } = useMemory(),
         { email, name, pwr_assoc, role } = req.body,
         pwr_association = (pwr_assoc as [boolean, boolean]).map((v) => v ? 1 : 0),
-        user = { name, pwr_association, role };
+        user = { name, pwr_association, role },
+        authorization = req.headers.authorization;
 
 
     try {
+
+        await verifyAuthHeader(authorization);
         await setDoc(doc(db, "users", email), user);
+
     } catch (e) {
+
         logger.info(e);
-        res.status(500).send("Failed to register user in permission service: " + e);
+        res.status(500)
+            .send("Failed to register user in permission service: " + e);
     }
 
     res.status(200).send();

@@ -4,6 +4,11 @@ Microservice skeleton.
 
 <br />
 
+## For firebase-admin sdk:
+Linux or macOS
+* export GOOGLE_APPLICATION_CREDENTIALS="/home/user/Downloads/service-account-file.json"
+Windows, With PowerShell:
+* $env:GOOGLE_APPLICATION_CREDENTIALS="C:\Users\username\Downloads\service-account-file.json"
 
 
 
