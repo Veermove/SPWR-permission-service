@@ -35,6 +35,7 @@ import configureRoutes from "./config/routes";
 import { port } from "./config/server.json";
 import { version } from "../package.json";
 import configureFirebase from "./config/firebase";
+import { configureAuthorization } from "./config/authorization";
 
 
 
@@ -80,6 +81,14 @@ run(async () => {
     app.use(json());
     app.use(urlencoded({ extended: true }));
 
+    // firebase initialization
+    configureFirebase();
+
+
+    // add request authorization
+    configureAuthorization();
+
+
     // set up CORS
     configureHeaders();
 
@@ -98,9 +107,6 @@ run(async () => {
 
     // logger (and error handling) configuration
     configureLogging();
-
-    // firebase initialization
-    configureFirebase();
 
     // listen and respond to requests
     server.listen(

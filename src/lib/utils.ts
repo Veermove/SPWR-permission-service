@@ -13,10 +13,6 @@ import { promises } from "fs";
 import { ap } from "@xcmats/js-toolbox/async";
 import { flow } from "@xcmats/js-toolbox/func";
 import { bytesToString } from "@xcmats/js-toolbox/codec";
-import { DecodedIdToken } from "firebase-admin/auth";
-import { useMemory } from "..";
-
-
 
 
 /**
@@ -34,13 +30,3 @@ export const readJSON: (
         ap(bytesToString),
         ap(JSON.parse),
     );
-
-export async function verifyAuthHeader (authorization: string | undefined): Promise<DecodedIdToken> {
-
-    const
-        { auth } = useMemory(),
-        bearerToken = authorization!,
-        token = bearerToken.match(/Bearer (.*)/)![1];
-
-    return auth.verifyIdToken(token);
-}
