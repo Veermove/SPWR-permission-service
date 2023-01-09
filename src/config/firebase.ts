@@ -3,9 +3,11 @@ import { Firestore, getFirestore } from "firebase/firestore";
 import { Auth, getAuth } from "firebase-admin/auth";
 import {
     App,
-    applicationDefault,
     initializeApp as initializeAdminApp ,
 } from "firebase-admin/app";
+import firebaseAdmin from "firebase-admin";
+import { readJSON } from "../lib/utils";
+
 import { share } from "mem-box/memory";
 
 
@@ -19,19 +21,22 @@ const firebaseConfig = {
     measurementId: "G-WYKJMBSMT5",
 };
 
+
+
 /**
  * Firebase initialization.
  */
-export default function configureFirebase (): void {
+export default async function configureFirebase (): Promise<void> {
+    const firebaseCert = await readJSON("./secrets/google_auth.json");
     const
         firebase = initializeApp(firebaseConfig),
         db = getFirestore(firebase),
-        firebaseAdmin = initializeAdminApp({
-            credential: applicationDefault(),
+        fb = initializeAdminApp({
+            credential: firebaseAdmin.credential.cert(firebaseCert),
         }),
-        auth = getAuth(firebaseAdmin);
+        auth = getAuth(fb);
 
-    share({ firebase, firebaseAdmin, db, auth });
+    share({ firebase, firebaseAdmin: fb, db, auth });
 }
 
 declare global {

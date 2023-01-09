@@ -3,4 +3,6 @@
 
 # dependencies
 /node_modules
-S.json
+
+# secrets
+/secrets/google_auth.json

@@ -82,7 +82,7 @@ run(async () => {
     app.use(urlencoded({ extended: true }));
 
     // firebase initialization
-    configureFirebase();
+    await configureFirebase();
 
 
     // add request authorization
