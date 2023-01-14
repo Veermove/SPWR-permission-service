@@ -13,7 +13,6 @@ export function configureAuthorization () : void {
                 token = bearerToken.match(/Bearer (.*)/)![1];
 
             req.xauth =  await auth.verifyIdToken(token);
-
             return next();
         } catch (e) {
             res.status(401).send({ error: e });

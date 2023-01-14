@@ -14,6 +14,8 @@ import { apiV1 } from "./env";
 
 import { hello } from "../actions/hello";
 import { createUser, isAdmin } from "../actions/user";
+import { getUser } from "../actions/getUser";
+import { setUser } from "../actions/setUser";
 
 
 
@@ -34,5 +36,11 @@ export default function configureRoutes (): void {
 
     // "isAdmin user" route
     app.post(`${apiV1}/user/isAdmin`, isAdmin);
+
+    // "get user by email"
+    app.get(`${apiV1}/user/:email`, getUser);
+
+    // "modify user" route
+    app.post(`${apiV1}/user/modify`, setUser);
 
 }
